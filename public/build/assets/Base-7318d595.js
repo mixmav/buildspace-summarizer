@@ -1,0 +1,1 @@
+import{o as a,c as t,b as s,w as r,u as l,r as o,F as n,H as c,a as u}from"./app-bcf07204.js";const _=u("title",null,"TL;DR - Mixmav",-1),i={__name:"Base",setup(d){return(e,m)=>(a(),t(n,null,[s(l(c),null,{default:r(()=>[_]),_:1}),o(e.$slots,"default")],64))}};export{i as default};
