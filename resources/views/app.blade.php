@@ -16,12 +16,15 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-	<meta name="application-name" content="TL;DR"/>
+	<meta name="application-name" content="TL;dr"/>
 	<meta name="description" content="">
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@200;400;600&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Dosis:wght@300;400;500&display=swap" rel="stylesheet">
+
+
 
 	<link rel="icon" href="/images/xxhdpi.png">
 	<link rel="apple-touch-icon" href="/images/xxhdpi.png">

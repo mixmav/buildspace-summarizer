@@ -19,6 +19,7 @@
         "@inertiajs/progress": "^0.2.7",
         "@tailwindcss/typography": "^0.5.8",
         "daisyui": "^2.46.0",
+        "jquery": "^3.6.3",
         "pinia": "^2.0.28",
         "vue": "^3.2.45"
     }
