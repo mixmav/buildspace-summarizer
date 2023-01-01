@@ -35,7 +35,7 @@ let processUrl = () => {
 	if (loading.value) {
 		return;
 	}
-	let match = url.value.match(/\?v\=([a-zA-Z0-9]+?)[^a-zA-Z0-9]?$/);
+	let match = url.value.match(/\?v\=([a-zA-Z0-9_-]+?)[^a-zA-Z0-9_-]?$/);
 	if (match != null) {
 		videoId.value = match[1];
 	} else {
