@@ -21,7 +21,7 @@ class SummaryController extends Controller
 
 		$return['data']['title'] = $video->snippet->title;
 
-		$process = new Process(['python', '../resources/external_scripts/transcription.py', $request->videoId]);
+		$process = new Process(['python3', '../resources/external_scripts/transcription.py', $request->videoId]);
 		$process->run();
 
 		if (!$process->isSuccessful()) {
