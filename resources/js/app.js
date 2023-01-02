@@ -9,6 +9,8 @@ import { InertiaProgress } from '@inertiajs/progress';
 import Base from '@/Pages/Layout/Base.vue';
 
 import { Link } from '@inertiajs/inertia-vue3';
+import Toast, { POSITION } from "vue-toastification";
+import "vue-toastification/dist/index.css";
 
 InertiaProgress.init({
 	color: '#9d4edd',
@@ -32,6 +34,9 @@ createInertiaApp({
 		const app = createApp({ render: () => h(App, props) })
 			.use(plugin)
 			.use(pinia)
+			.use(Toast, {
+				position: POSITION.BOTTOM_RIGHT
+			})
 			.component('Link', Link);
 			app.mount(el)
 	},

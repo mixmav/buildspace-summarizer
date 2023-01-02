@@ -1,10 +1,14 @@
 {
+  "resources/img/huberman.jpg": {
+    "file": "assets/huberman-71b17ca2.jpg",
+    "src": "resources/img/huberman.jpg"
+  },
   "resources/js/app.css": {
-    "file": "assets/app-1d7a8975.css",
+    "file": "assets/app-ba6bccc1.css",
     "src": "resources/js/app.css"
   },
   "resources/js/Pages/layout/Base.vue": {
-    "file": "assets/Base-5b38de96.js",
+    "file": "assets/Base-4aa1ea97.js",
     "src": "resources/js/Pages/layout/Base.vue",
     "isDynamicEntry": true,
     "imports": [
@@ -12,15 +16,18 @@
     ]
   },
   "resources/js/Pages/Home/Page.vue": {
-    "file": "assets/Page-7a16aa99.js",
+    "file": "assets/Page-b25aba61.js",
     "src": "resources/js/Pages/Home/Page.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js"
+    ],
+    "assets": [
+      "assets/huberman-71b17ca2.jpg"
     ]
   },
   "resources/js/app.js": {
-    "file": "assets/app-6f87e70d.js",
+    "file": "assets/app-fc8197a4.js",
     "src": "resources/js/app.js",
     "isEntry": true,
     "dynamicImports": [
@@ -28,7 +35,7 @@
       "resources/js/Pages/layout/Base.vue"
     ],
     "css": [
-      "assets/app-1d7a8975.css"
+      "assets/app-ba6bccc1.css"
     ]
   }
 }

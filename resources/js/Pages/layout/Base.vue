@@ -4,7 +4,7 @@
 		<title>TL;dr</title>
 	</Head>
 
-	<div class="daisy-navbar bg-base-100 sticky top-0 border-b-2 border-b-base-200 z-50 p-2 mb-12">
+	<div class="daisy-navbar bg-base-100 sticky top-0 border-b-2 border-b-base-200 z-50 p-2">
 		<div class="daisy-navbar-start">
 			<div class="daisy-dropdown">
 				<label tabindex="0" class="daisy-btn daisy-btn-ghost daisy-btn-circle">
@@ -28,7 +28,9 @@
 		<div class="daisy-navbar-end">
 		</div>
 	</div>
-	<slot />
+	<div class="p-6">
+		<slot />
+	</div>
 </template>
 
 <script setup>
