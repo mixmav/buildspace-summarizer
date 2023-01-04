@@ -18,8 +18,8 @@ use App\Http\Controllers\SummaryController;
 Route::inertia('/', 'Home/Page');
 
 
-// If app environment is local, use the following route
-if(app()->environment('local')){
+// If app debug is true, use the following route
+if (config('app.debug')) {
 	Route::get('/api/summarize', [SummaryController::class, 'Process']);
 }
 
