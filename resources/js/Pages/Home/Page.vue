@@ -12,7 +12,7 @@
 				:src="hubermanJpg" alt="Face shot of Dr. Andrew Huberman">
 		</div>
 
-		<input @keyup.enter="processUrl" v-model="url" type="text" placeholder="Enter a YouTube URL"
+		<input ref="urlInput" @keyup.enter="processUrl" v-model="url" type="text" placeholder="Enter a YouTube URL"
 			class="w-full daisy-input daisy-input-bordered" autofocus />
 
 		<button @click="useRandomLink" class="daisy-btn daisy-btn-ghost mt-4 daisy-btn-xs gap-2 self-end"><i
@@ -36,9 +36,9 @@ import sectionsView from './SectionsView.vue';
 import { useApiResponse } from '@/stores/useApiResponse';
 
 const apiResponse = useApiResponse();
-
 const toast = useToast();
 
+let urlInput = ref(null);
 let url = ref('');
 let videoId = ref('');
 let loading = ref(false);
@@ -105,6 +105,8 @@ let useRandomLink = () => {
 	]
 
 	url.value = vidoes[Math.floor(Math.random() * vidoes.length)];
+	urlInput.value.focus();
+
 }
 
 </script>
