@@ -69,7 +69,7 @@ let processUrl = () => {
 		success: (response) => {
 			if (response.errors?.length > 0) {
 				response.errors.forEach((error) => {
-					toast.info(error);
+					toast.error(error);
 				});
 			} else {
 				apiResponse.title = response.data.title;
