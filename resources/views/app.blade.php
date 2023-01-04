@@ -12,30 +12,48 @@
 
 <!DOCTYPE html>
 <html lang="en" data-theme="dracula">
+
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-	<meta name="application-name" content="TL;dr"/>
-	<meta name="description" content="">
-	<meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="application-name" content="TL;dr" />
+    <meta name="description" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Dosis:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@300;400;500&display=swap" rel="stylesheet">
 
 
 
-	<link rel="icon" href="/images/xxhdpi.png">
-	<link rel="apple-touch-icon" href="/images/xxhdpi.png">
+    <link rel="icon" href="/images/xxhdpi.png">
+    <link rel="apple-touch-icon" href="/images/xxhdpi.png">
 
-	<script src="https://kit.fontawesome.com/0db8c7f53e.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/0db8c7f53e.js" crossorigin="anonymous"></script>
 
-	@vite('resources/js/app.js')
-	@inertiaHead
+    {{-- If the site environment is production, add a tag --}}
+    @if (app()->environment('production'))
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-723VXXMN8D"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+
+            gtag('config', 'G-723VXXMN8D');
+        </script>
+    @endif
+
+    @vite('resources/js/app.js')
+    @inertiaHead
 </head>
 
 <body>
-	@inertia
+    @inertia
 </body>
+
 </html>

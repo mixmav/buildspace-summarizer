@@ -6,26 +6,61 @@ use Illuminate\Http\Request;
 use Symfony\Component\Process\Process;
 use Alaouy\Youtube\Facades\Youtube;
 
+use App\Models\YoutubeVideo;
+use App\Models\Section;
+
 class SummaryController extends Controller
 {
 	public function Process(Request $request)
 	{
-		$video = Youtube::getVideoInfo($request->videoId);
 		$return = array('errors' => array(), 'data' => array());
 
+		$youtube_video = YoutubeVideo::where('video_id', '=', $request->videoId);
+		if($youtube_video->exists()){
+			$youtube_video = $youtube_video->first();
+			$sections = $youtube_video->sections();
+			if(count($sections->get()) > 0){
+				$return['data']['title'] = $youtube_video->title;
+				$return['data']['cached'] = true;
+				$return['data']['sections'] = array();
+				foreach($sections->get() as $section){
+					$return['data']['sections'][$section->section_number] = array(
+						'title' => $section->title,
+						'section_number' => $section->section_number,
+						'text' => $section->text,
+					);
+				}
+				return $return;
+			}
+		}
 
-		if ($video->snippet->channelId != 'UC2D2CMWXMOVWx7giW1n3LIg') {
-			$return['errors'][0] = "This videos is not from Huberman Lab's channel 🙃";
+		$video_fetch = Youtube::getVideoInfo($request->videoId);
+
+		// Check if the video is a valid YouTube video
+		if (!$video_fetch) {
+			$return['errors'][0] = "Can't find the requested video 🔭";
 			return $return;
 		}
 
-		$return['data']['title'] = $video->snippet->title;
+		if ($video_fetch->snippet->channelId != 'UC2D2CMWXMOVWx7giW1n3LIg') {
+			$return['errors'][0] = "This video is not from Huberman Lab's channel 🙃";
+			return $return;
+		}
+		$youtube_video = YoutubeVideo::firstOrCreate(
+			['video_id' => $video_fetch->id],
+		);
 
-		$process = new Process(['python3', '../resources/external_scripts/transcription.py', $request->videoId]);
+		$youtube_video->title = $video_fetch->snippet->title;
+		$youtube_video->save();
+
+		$return['data']['title'] = $video_fetch->snippet->title;
+
+		$process = new Process([(app()->environment('local')) ? 'python' : 'python3', '../resources/external_scripts/transcription.py', $request->videoId]);
 		$process->run();
 
+
 		if (!$process->isSuccessful()) {
-			return 'Error processing the requested video 🫠';
+			return 'Error retrieving the transcript 🫠';
 		}
 
 		// If $process->getOutput() is not a valid JSON string, or starts with 'Error:', then return the error message
@@ -33,26 +68,85 @@ class SummaryController extends Controller
 			return "No transcript for the requested video was found 😵";
 		}
 
-		$json = json_decode($process->getOutput());
+		$transcript_json = json_decode($process->getOutput());
+		$timestamps = $this->get_timestamps_from_description($video_fetch->snippet->description);
+		$sections = $this->generate_sections($transcript_json, $timestamps);
 
-		// dd($json);
+		foreach ($sections as $key => $section) {
+			$section = Section::firstOrNew([
+				'section_number' => $key,
+				'youtube_video_id' => $youtube_video->id,
+				'title' => $section['title'],
+				'text' => $section['text'],
+			]);
+
+			$section->save();
+		}
+
+		$return['data']['sections'] = $sections;
 		return $return;
-
-
-		// $description = $video->snippet->description;
-		// preg_match_all('/(?:\d\d?)?:?(?:\d\d?):(?:\d\d?)\s.+?\n/', $description, $description_timestamp_matches);
-
-		// $timestamps = array();
-		// foreach ($description_timestamp_matches[0] as $timestamp) {
-		// 	preg_match('/^((?:\d\d?)?:?(?:\d\d?):(?:\d\d?))\s(.+?)$/', $timestamp, $timestamp_matches);
-		// 	$timestamps[] = array(
-		// 		'time' => $timestamp_matches[1],
-		// 		'title' => $timestamp_matches[2]
-		// 	);
-		// }
 	}
 
-	private function summarize($json){
+
+	private function generate_sections($transcript_json, $timestamps)
+	{
+		// For each $timestamp, find the first $transcript_json object whose start time is closest to the $timestamp's time
+		$closest = array_map(function ($timestamp) use ($transcript_json) {
+			$closest = array_reduce($transcript_json, function ($carry, $item) use ($timestamp) {
+				if ($carry === null) {
+					return $item;
+				}
+				return abs($item->start - $timestamp['time']) < abs($carry->start - $timestamp['time']) ? $item : $carry;
+			});
+
+			return array(
+				'title' => $timestamp['title'],
+				'start' => $closest->start,
+				'text' => $closest->text
+			);
+		}, $timestamps);
+
+		// Make a new array where each element is the combination of all text keys from every $transcript_json objects between each of $closest's start times
+		$sections = array_map(function ($item, $index) use ($closest, $transcript_json) {
+			$end = $closest[$index + 1]['start'] ?? null;
+			$section = array_reduce($transcript_json, function ($carry, $obj) use ($item, $end) {
+				if ($obj->start >= $item['start'] && ($end === null || $obj->start < $end)) {
+					$carry .= $obj->text . ' ';
+				}
+				return $carry;
+			}, '');
+
+			return array(
+				'title' => $item['title'],
+				'section_number' => $index,
+				'text' => $section
+			);
+		}, $closest, array_keys($closest));
+
+		return $sections;
+	}
+
+	private function get_timestamps_from_description($description)
+	{
+		preg_match_all('/(?:\d\d?)?:?(?:\d\d?):(?:\d\d?)\s.+?\n/', $description, $description_timestamp_matches);
+
+		$timestamps = array();
+		foreach ($description_timestamp_matches[0] as $timestamp) {
+			preg_match('/^((?:\d\d?)?:?(?:\d\d?):(?:\d\d?))\s(.+?)$/', $timestamp, $timestamp_matches);
+			$timestamps[] = array(
+				// the time key is of the format hh:mm:ss, convert it to seconds and add it to the timestamps array
+				'time' => array_reduce(explode(':', $timestamp_matches[1]), function ($carry, $item) {
+					return $carry * 60 + $item;
+				}),
+				'title' => $timestamp_matches[2]
+			);
+		}
+
+		return $timestamps;
+	}
+
+	private function summarize($json)
+	{
 		// Extract the text key from each of the JSON objects and append them together with a space in between
 		$text = implode(' ', array_map(function ($obj) {
 			return $obj->text;

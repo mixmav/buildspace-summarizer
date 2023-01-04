@@ -10,7 +10,7 @@ export default defineConfig({
 			],
 
             refresh: [
-                'resources/**',
+                // 'resources/**',
                 'routes/**',
                 'app/**',
             ],

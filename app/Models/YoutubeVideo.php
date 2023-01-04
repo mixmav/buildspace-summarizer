@@ -4,14 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 use App\Models\Section;
 
-class Summary extends Model
+
+class YoutubeVideo extends Model
 {
     use HasFactory;
 
-	public function section(){
-		return $this->belongsTo(Section::class);
+	protected $fillable = [
+		'video_id',
+	];
+
+	public function sections()
+	{
+		return $this->hasMany(Section::class);
 	}
 }

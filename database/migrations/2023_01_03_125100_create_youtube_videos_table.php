@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\Section;
 
 return new class extends Migration
 {
@@ -14,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('summaries', function (Blueprint $table) {
+        Schema::create('youtube_videos', function (Blueprint $table) {
             $table->id();
-
-			$table->longText('summary');
-			$table->foreignIdFor(Section::class);
-
-			$table->timestamps();
+			$table->string('video_id');
+			$table->string('title')->default('');
+            $table->timestamps();
         });
     }
 
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('summaries');
+        Schema::dropIfExists('youtube_videos');
     }
 };
