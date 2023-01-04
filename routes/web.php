@@ -17,4 +17,10 @@ use App\Http\Controllers\SummaryController;
 
 Route::inertia('/', 'Home/Page');
 
+
+// If app environment is local, use the following route
+if(app()->environment('local')){
+	Route::get('/api/summarize', [SummaryController::class, 'Process']);
+}
+
 Route::post('/api/summarize', [SummaryController::class, 'Process']);
