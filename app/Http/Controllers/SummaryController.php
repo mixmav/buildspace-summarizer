@@ -60,12 +60,14 @@ class SummaryController extends Controller
 
 
 		if (!$process->isSuccessful()) {
-			return 'Error retrieving the transcript 🫠';
+			$return['errors'][0] = "Error retrieving the transcript from YouTube 🫠";
+			return $return;
 		}
 
 		// If $process->getOutput() is not a valid JSON string, or starts with 'Error:', then return the error message
 		if (substr($process->getOutput(), 0, 6) === 'Error:') {
-			return "No transcript for the requested video was found 😵";
+			$return['errors'][0] = "No transcript for the requested video was found 😵";
+			return $return;
 		}
 
 		$transcript_json = json_decode($process->getOutput());

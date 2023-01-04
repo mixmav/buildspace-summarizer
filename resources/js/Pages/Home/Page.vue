@@ -83,6 +83,10 @@ let processUrl = () => {
 			}
 		},
 
+		error: () => {
+			toast.error('Something went wrong 🥥');
+		},
+
 		complete: () => {
 			setTimeout(() => {
 				loading.value = false;
