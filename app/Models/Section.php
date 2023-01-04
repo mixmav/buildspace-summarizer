@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\YouTubeVideo;
+use App\Models\YoutubeVideo;
 
 class Section extends Model
 {
@@ -19,7 +19,7 @@ class Section extends Model
 
 	public function youtube_video()
 	{
-		return $this->belongsTo(YouTubeVideo::class);
+		return $this->belongsTo(YoutubeVideo::class);
 	}
 
 	public function summaries()
