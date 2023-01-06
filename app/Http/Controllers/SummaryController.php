@@ -8,6 +8,7 @@ use Alaouy\Youtube\Facades\Youtube;
 
 use App\Models\YoutubeVideo;
 use App\Models\Section;
+use App\Models\Summary;
 
 class SummaryController extends Controller
 {
@@ -26,6 +27,7 @@ class SummaryController extends Controller
 				foreach($sections->get() as $section){
 					$return['data']['sections'][$section->section_number] = array(
 						'title' => $section->title,
+						'section_id' => $section->id,
 						'section_number' => $section->section_number,
 						'text' => $section->text,
 					);
@@ -75,19 +77,41 @@ class SummaryController extends Controller
 		$sections = $this->generate_sections($transcript_json, $timestamps);
 
 		foreach ($sections as $key => $section) {
-			$section = Section::firstOrNew([
+			$section = Section::firstOrCreate([
 				'section_number' => $key,
 				'youtube_video_id' => $youtube_video->id,
 				'title' => $section['title'],
 				'text' => $section['text'],
 			]);
 
-			$section->save();
+			$sections[$key]['section_id'] = $section->id;
 		}
 
 		$return['data']['sections'] = $sections;
 		return $return;
 	}
+
+
+	public function SummarizeSection(Request $request){
+		$section = Section::findOrFail($request->section_id);
+
+		// $youtube_video = YoutubeVideo::where('video_id', '=', $request->videoId);
+		// 	if($youtube_video->exists()){
+		$summaries = $section->summaries()->get();
+		if(count($summaries) > 0){
+			// Summary already in database, return it.
+			return $summaries[0]->summary;
+		}
+
+		$summary = new Summary;
+		$summary->section_id = $request->section_id;
+		$summary->summary = $this->summarize($section->title, $section->text)['summary'];
+		$summary->completion_id = $this->summarize($section->title, $section->text)['completion_id'];
+		$summary->save();
+
+		return $summary->summary;
+	}
+
 
 
 	private function generate_sections($transcript_json, $timestamps)
@@ -147,60 +171,43 @@ class SummaryController extends Controller
 		return $timestamps;
 	}
 
-	private function summarize($json)
+	private function summarize($title, $text)
 	{
-		// Extract the text key from each of the JSON objects and append them together with a space in between
-		$text = implode(' ', array_map(function ($obj) {
-			return $obj->text;
-		}, $json));
+		$api_key = env('OPENAI_API_KEY', 'ABC123');
+		$prompt = <<<EOD
+Summarize the the most important information from the following transcript in dotpoints.
+Title: $title
+Text: $text.
+Summary:
+EOD;
 
-
-		$text = substr($text, 0, 5000);
-
-		$api_key = "";
-		$prompt = "Summarize the following text in actionable steps: " . $text;
-		$model = "davinci";
-		$maxChars = 1000;
-		$endpoint = "https://api.openai.com/v1/completions";
-
-		// Set the headers for the API call
 		$headers = array(
 			"Content-Type: application/json",
 			"Authorization: Bearer " . $api_key
 		);
 
-		// Set the data for the API call
 		$data = array(
-			"model" => $model,
+			"model" => 'text-davinci-003',
 			"prompt" => $prompt,
-			"max_tokens" => $maxChars
+			"max_tokens" => 500
 		);
 
-		// Encode the data as JSON
 		$data = json_encode($data);
 
-		// Set up the cURL request
 		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, $endpoint);
+		curl_setopt($ch, CURLOPT_URL, 'https://api.openai.com/v1/completions');
 		curl_setopt($ch, CURLOPT_POST, true);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
-		// Execute the cURL request and get the response
 		$response = curl_exec($ch);
 
-		// Decode the response as JSON
 		$response = json_decode($response, true);
-		dd($response);
 
-		// Check if the API call was successful
-		// if ($response["error"]) {
-		// There was an error, handle it here
-		// echo "Error: " . $response["error"];
-		// } else {
-		// The API call was successful, output the generated text
-		// echo $response["data"]["text"];
-		// }
+		return array(
+			'summary' => trim($response['choices'][0]['text']),
+			'completion_id' => $response['id']
+		);
 	}
 }

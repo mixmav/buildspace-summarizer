@@ -18,6 +18,8 @@ return new class extends Migration
             $table->id();
 
 			$table->longText('summary');
+			$table->integer('summary_type')->default(0);
+			$table->string('completion_id');
 			$table->foreignIdFor(Section::class);
 
 			$table->timestamps();

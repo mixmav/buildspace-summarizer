@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SummaryController;
+use App\Http\Controllers\SubscriberController;
 
 
 /*
@@ -20,7 +21,11 @@ Route::inertia('/', 'Home/Page');
 
 // If app debug is true, use the following route
 if (config('app.debug')) {
-	Route::get('/api/summarize', [SummaryController::class, 'Process']);
+	Route::get('/api/process', [SummaryController::class, 'Process']);
+	Route::get('/api/summarize/section', [SummaryController::class, 'SummarizeSection']);
+	Route::get('/api/subscriber/subscribe', [SubscriberController::class, 'Subscribe']);
 }
 
-Route::post('/api/summarize', [SummaryController::class, 'Process']);
+Route::post('/api/process', [SummaryController::class, 'Process']);
+Route::post('/api/summarize/section', [SummaryController::class, 'SummarizeSection']);
+Route::post('/api/subscriber/subscribe', [SubscriberController::class, 'Subscribe']);

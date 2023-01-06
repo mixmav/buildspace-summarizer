@@ -16,3 +16,12 @@
 		@apply bg-primary text-primary-content;
 	}
 }
+
+.opacity-enter-active, .opacity-leave-active {
+	transition: all .3s;
+	transition-timing-function: cubic-bezier(0.0, 0.0, 0.2, 1);
+}
+.opacity-enter, .opacity-leave-to {
+	opacity: 0;
+	transition-timing-function: cubic-bezier(0.4, 0.0, 1, 1);
+}

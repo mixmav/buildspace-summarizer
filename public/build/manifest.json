@@ -4,47 +4,57 @@
     "src": "resources/img/huberman.jpg"
   },
   "resources/js/app.css": {
-    "file": "assets/app-73096997.css",
+    "file": "assets/app-ca2b3d92.css",
     "src": "resources/js/app.css"
   },
-  "_SectionsView-f65c237d.js": {
-    "file": "assets/SectionsView-f65c237d.js",
+  "resources/js/Pages/Home/Page.vue": {
+    "file": "assets/Page-fa92ca55.js",
+    "src": "resources/js/Pages/Home/Page.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_SubscriberSignUp-dd946bb9.js",
+      "_SectionsView-681fa98d.js"
+    ],
+    "assets": [
+      "assets/huberman-71b17ca2.jpg"
+    ]
+  },
+  "_SectionsView-681fa98d.js": {
+    "file": "assets/SectionsView-681fa98d.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_SubscriberSignUp-dd946bb9.js"
+    ]
+  },
+  "_SubscriberSignUp-dd946bb9.js": {
+    "file": "assets/SubscriberSignUp-dd946bb9.js",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js"
     ]
   },
   "resources/js/Pages/layout/Base.vue": {
-    "file": "assets/Base-094725fd.js",
+    "file": "assets/Base-a96a7ab1.js",
     "src": "resources/js/Pages/layout/Base.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "resources/js/Pages/Home/Page.vue": {
-    "file": "assets/Page-6741d703.js",
-    "src": "resources/js/Pages/Home/Page.vue",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.js",
-      "_SectionsView-f65c237d.js"
-    ],
-    "assets": [
-      "assets/huberman-71b17ca2.jpg"
-    ]
-  },
   "resources/js/app.js": {
-    "file": "assets/app-21744689.js",
+    "file": "assets/app-f4b6dc54.js",
     "src": "resources/js/app.js",
     "isEntry": true,
     "dynamicImports": [
       "resources/js/Pages/Home/Page.vue",
-      "_SectionsView-f65c237d.js",
-      "resources/js/Pages/layout/Base.vue"
+      "_SectionsView-681fa98d.js",
+      "resources/js/Pages/layout/Base.vue",
+      "_SubscriberSignUp-dd946bb9.js"
     ],
     "css": [
-      "assets/app-73096997.css"
+      "assets/app-ca2b3d92.css"
     ]
   }
 }
