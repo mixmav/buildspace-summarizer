@@ -103,10 +103,11 @@ class SummaryController extends Controller
 			return $summaries[0]->summary;
 		}
 
+		$generated_summary = $this->Summarize($section->title, $section->text);
 		$summary = new Summary;
 		$summary->section_id = $request->section_id;
-		$summary->summary = $this->summarize($section->title, $section->text)['summary'];
-		$summary->completion_id = $this->summarize($section->title, $section->text)['completion_id'];
+		$summary->summary = $generated_summary['summary'];
+		$summary->completion_id = $generated_summary['completion_id'];
 		$summary->save();
 
 		return $summary->summary;
@@ -171,7 +172,7 @@ class SummaryController extends Controller
 		return $timestamps;
 	}
 
-	private function summarize($title, $text)
+	private function Summarize($title, $text)
 	{
 		$api_key = env('OPENAI_API_KEY', 'ABC123');
 		$prompt = <<<EOD

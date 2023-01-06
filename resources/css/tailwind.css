@@ -15,6 +15,22 @@
 	::selection {
 		@apply bg-primary text-primary-content;
 	}
+
+	*{
+		scrollbar-width: auto;
+		scrollbar-color: hsl(var(--p)) hsla(var(--b1));
+	}
+	*::-webkit-scrollbar {
+		width: 8px;
+		height: 8px;
+	}
+	*::-webkit-scrollbar-track {
+		background: hsla(var(--b1));
+	}
+	*::-webkit-scrollbar-thumb {
+		background-color: hsl(var(--p));
+		border-radius: 10px;
+	}
 }
 
 .opacity-enter-active, .opacity-leave-active {

@@ -2,7 +2,7 @@
 	<div class="prose daisy-prose mx-auto flex flex-col max-w-full">
 		<div class="flex flex-col md:flex-row justify-between items-center my-4">
 			<div class="self-stretch flex flex-col items-start justify-between">
-				<h2 class="my-0">A podcast summarizer powered by AI ⚡</h2>
+				<h2 class="my-0 text-xl md:text-2xl">🔭 A podcast summarizer powered by AI</h2>
 				<p class="mt-4 md:my-0">As a proof of concept, the app <i>only</i> processes <a class="daisy-link daisy-link-primary"
 						href="https://hubermanlab.com/" target="_blank">Huberman Lab</a> episodes.</p>
 			</div>
@@ -23,7 +23,7 @@
 			:disabled="app.loading" @click="processUrl">Summarize</button>
 
 		<Transition name="opacity" mode="out-in">
-			<div v-if="$.isEmptyObject(apiResponse.sections) && !app.loading" class="mt-14">
+			<div v-if="$.isEmptyObject(apiResponse.sections)" class="mt-14">
 				<h3 class="mt-0">🧪 Feature updates</h3>
 				<p class="my-0 mb-4">Sign up if you'd like feature updates via emails. No spam 🫡</p>
 				<subscriber-sign-up></subscriber-sign-up>
@@ -62,7 +62,7 @@ let processUrl = () => {
 	if (match != null) {
 		videoId.value = match[1];
 	} else {
-		toast.info('Invalid URL 🥥');
+		toast.info('Invalid URL 🫠');
 		return;
 	}
 

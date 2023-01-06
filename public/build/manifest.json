@@ -4,39 +4,39 @@
     "src": "resources/img/huberman.jpg"
   },
   "resources/js/app.css": {
-    "file": "assets/app-ca2b3d92.css",
+    "file": "assets/app-9aa2e372.css",
     "src": "resources/js/app.css"
   },
-  "resources/js/Pages/Home/Page.vue": {
-    "file": "assets/Page-fa92ca55.js",
-    "src": "resources/js/Pages/Home/Page.vue",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.js",
-      "_SubscriberSignUp-dd946bb9.js",
-      "_SectionsView-681fa98d.js"
-    ],
-    "assets": [
-      "assets/huberman-71b17ca2.jpg"
-    ]
-  },
-  "_SectionsView-681fa98d.js": {
-    "file": "assets/SectionsView-681fa98d.js",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.js",
-      "_SubscriberSignUp-dd946bb9.js"
-    ]
-  },
-  "_SubscriberSignUp-dd946bb9.js": {
-    "file": "assets/SubscriberSignUp-dd946bb9.js",
+  "_SubscriberSignUp-7c6823e7.js": {
+    "file": "assets/SubscriberSignUp-7c6823e7.js",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js"
     ]
   },
+  "resources/js/Pages/Home/Page.vue": {
+    "file": "assets/Page-1842e030.js",
+    "src": "resources/js/Pages/Home/Page.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_SubscriberSignUp-7c6823e7.js",
+      "_SectionsView-b3ace91a.js"
+    ],
+    "assets": [
+      "assets/huberman-71b17ca2.jpg"
+    ]
+  },
+  "_SectionsView-b3ace91a.js": {
+    "file": "assets/SectionsView-b3ace91a.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_SubscriberSignUp-7c6823e7.js"
+    ]
+  },
   "resources/js/Pages/layout/Base.vue": {
-    "file": "assets/Base-a96a7ab1.js",
+    "file": "assets/Base-89bc24a6.js",
     "src": "resources/js/Pages/layout/Base.vue",
     "isDynamicEntry": true,
     "imports": [
@@ -44,17 +44,17 @@
     ]
   },
   "resources/js/app.js": {
-    "file": "assets/app-f4b6dc54.js",
+    "file": "assets/app-b004a0ef.js",
     "src": "resources/js/app.js",
     "isEntry": true,
     "dynamicImports": [
       "resources/js/Pages/Home/Page.vue",
-      "_SectionsView-681fa98d.js",
+      "_SectionsView-b3ace91a.js",
       "resources/js/Pages/layout/Base.vue",
-      "_SubscriberSignUp-dd946bb9.js"
+      "_SubscriberSignUp-7c6823e7.js"
     ],
     "css": [
-      "assets/app-ca2b3d92.css"
+      "assets/app-9aa2e372.css"
     ]
   }
 }

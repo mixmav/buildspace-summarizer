@@ -21,6 +21,7 @@ module.exports = {
                     secondary: "#C49EFA",
                 },
             },
+			'cupcake',
         ],
     },
 };

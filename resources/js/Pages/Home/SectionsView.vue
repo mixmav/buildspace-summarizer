@@ -1,13 +1,14 @@
 <template>
 	<div class="w-full mb-[80px]">
 		<h2 class="mt-12" id="video-title-heading">{{ apiResponse.title }}</h2>
-		<h3 clas="mt-4"><span class="text-primary">#</span>&nbsp;This podcast contains <span class="text-primary">
+		<h3 clas="mt-4"><span class="text-primary">#</span>&nbsp;This podcast has <span class="text-primary">
 				{{ apiResponse.sections.length }} sections</span>.</h3>
 		<button class="daisy-btn daisy-btn-sm my-4 gap-2" @click="startOver"><i class="fa fa-sync"></i>Start over</button>
+
 		<div class="daisy-tabs">
-			<span class="daisy-tab daisy-tab-bordered daisy-tab-lg" :class="{ 'daisy-tab-active': activeTab == 0 }"
+			<span class="daisy-tab daisy-tab-bordered daisy-tab-md md:daisy-tab-lg" :class="{ 'daisy-tab-active': activeTab == 0 }"
 				@click="activeTab = 0">Overall summary</span>
-			<span class="daisy-tab daisy-tab-bordered daisy-tab-lg" :class="{ 'daisy-tab-active': activeTab == 1 }"
+			<span class="daisy-tab daisy-tab-bordered daisy-tab-md md:daisy-tab-lg" :class="{ 'daisy-tab-active': activeTab == 1 }"
 				@click="activeTab = 1">Summary by section</span>
 		</div>
 		<div v-show="activeTab == 0" class="mt-6">
@@ -18,26 +19,28 @@
 			</div>
 		</div>
 		<div v-show="activeTab == 1">
-			<div class="daisy-tabs-boxed mt-6">
-				<a class="daisy-tab daisy-tab-lg lifted transition-[background-color,color,border-radius] ease-linear"
+			<div class="daisy-tabs-boxed mt-6 overflow-x-auto">
+				<a class="daisy-tab inline daisy-tab-lg lifted transition-[background-color,color,border-radius] ease-linear"
 					:class="{ 'daisy-tab-active': (key == activeSection) }"
 					v-for="(section, key) in apiResponse.sections" :key="key"
 					@click="activeSection = (app.loading) ? activeSection : key">{{ section.section_number + 1 }}</a>
 			</div>
 			<div class="p-2">
-				<div class="mt-4 flex justify-between items-center py-2">
+				<div class="mt-4 flex flex-col md:flex-row justify-between items-start md:items-center py-2">
 					<h2 class="my-0">{{ activeSectionData?.title }}</h2>
-					<button class="daisy-btn daisy-btn-primary daisy-btn-sm gap-2"
+					<button class="daisy-btn daisy-btn-primary daisy-btn-sm gap-2 mt-4 md:mt-0"
 						:class="{ 'daisy-loading': app.loading }"
 						:disabled="(app.loading || activeSectionSummaryIndex > -1)" @click="summarizeSection"><i
-							class="fa fa-layer-group"></i>Summarize this section</button>
+							class="fa fa-layer-group"></i>Summarize section</button>
 				</div>
 
-				<div class="daisy-badge daisy-badge-sm" v-show="activeSectionData?.section_number == 0">Often a general
+				<div class="daisy-badge hidden md:block daisy-badge-sm" v-show="activeSectionData?.section_number == 0">Often a general
 					introduction</div>
 				<div v-if="activeSectionSummaryIndex > -1">
-					<h3>Summary 🤖<br><a class="daisy-link daisy-link-primary text-xs" @click="removeSummary">View original</a></h3>
-					<p class="my-0" v-html="apiResponse.summaries[activeSectionSummaryIndex].summary"></p>
+					<h3 class="mb-0">Summary 🥥</h3>
+					<a class="daisy-link daisy-link-primary text-xs" @click="removeSummary">View original</a>
+
+					<p class="my-0 mt-4" v-html="apiResponse.summaries[activeSectionSummaryIndex].summary"></p>
 				</div>
 				<p v-else>{{ activeSectionData?.text }}</p>
 			</div>
