@@ -21,14 +21,19 @@
 		</div>
 		<div v-show="activeTab == 1">
 			<div class="daisy-collapse relative">
-				<input type="checkbox" class="peer" v-model="listViewOpen"/>
-				<i class="fa fa-caret-down absolute z-20 right-10 top-10 peer-checked:-rotate-180 transition-transform duration-300"></i>
+				<input type="checkbox" class="peer" v-model="listViewOpen" />
+				<i
+					class="fa fa-caret-down absolute z-20 right-10 top-10 peer-checked:-rotate-180 transition-transform duration-300"></i>
 				<div class="daisy-collapse-title bg-base-300 rounded-xl mt-4">
 					<h4 class="my-0"><i class="fa fa-clipboard-list mr-4"></i>List view</h4>
 				</div>
 
 				<div class="daisy-collapse-content peer-checked:p-4">
-					<div @click="activeSection = (app.loading) ? activeSection : key" :class="{'!daisy-badge-accent animate-bounce cursor-default': (key == activeSection)}" class="daisy-badge daisy-badge-primary odd:daisy-badge-secondary ml-2 cursor-pointer" v-for="(section, key) in apiResponse.sections" :key="key">{{ (section.title.length > 30) ? section.title.slice(0, 50) + "...":section.title }}</div>
+					<div @click="activeSection = (app.loading) ? activeSection : key"
+						:class="{ '!daisy-badge-accent animate-bounce cursor-default': (key == activeSection) }"
+						class="daisy-badge daisy-badge-primary odd:daisy-badge-secondary ml-2 cursor-pointer overflow-hidden"
+						v-for="(section, key) in apiResponse.sections" :key="key">{{ (section.title.length > 30) ?
+						section.title.slice(0, 50) + "..." : section.title }}</div>
 				</div>
 			</div>
 
@@ -124,6 +129,7 @@ let summarizeSection = () => {
 				});
 			} else {
 				// If the apiResponse.summaries array has an object with the same section_id as activeSectionData.value.section_id, replace it, otherwise create a new element
+				dataLayer.push({'event':'summary_generated', sectionId: activeSectionData.value.section_id});
 				if (activeSectionSummaryIndex.value > -1) {
 					apiResponse[activeSectionSummaryIndex.value] = {
 						section_id: activeSectionData.value.section_id,
