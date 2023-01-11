@@ -10,7 +10,7 @@
 			<span class="daisy-tab daisy-tab-bordered daisy-tab-md md:daisy-tab-lg"
 				:class="{ 'daisy-tab-active': activeTab == 0 }" @click="activeTab = 0">Overall summary</span>
 			<span class="daisy-tab daisy-tab-bordered daisy-tab-md md:daisy-tab-lg"
-				:class="{ 'daisy-tab-active': activeTab == 1 }" @click="activeTab = 1">Summary by section</span>
+				:class="{ 'daisy-tab-active': activeTab == 1 }" @click="activeTab = 1">Sections</span>
 		</div>
 		<div v-show="activeTab == 0" class="mt-6">
 			<div class="w-full mt-8">
@@ -47,12 +47,12 @@
 						:disabled="(app.loading || activeSectionSummaryIndex > -1)" @click="summarizeSection"><i
 							class="fa fa-layer-group"></i>Summarize section</button>
 				</div>
-
 				<div class="daisy-badge hidden md:block daisy-badge-sm" v-show="activeSectionData?.section_number == 0">
 					Often a general
 					introduction</div>
+				<h4 v-if="activeSectionSummaryIndex == -1" class="italic">Original transcript 🍇</h4>
 				<div v-if="activeSectionSummaryIndex > -1">
-					<h3 class="mb-0">Summary 🥥</h3>
+					<h4 class="mb-0">Summary 🥥</h4>
 					<a class="daisy-link daisy-link-primary text-xs" @click="removeSummary">View original</a>
 
 					<p class="my-0 mt-4" v-html="apiResponse.summaries[activeSectionSummaryIndex].summary"></p>

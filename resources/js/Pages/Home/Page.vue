@@ -26,7 +26,7 @@
 
 		<Transition name="opacity" mode="out-in">
 			<div v-if="$.isEmptyObject(apiResponse.sections)" class="mt-2">
-				<h2 class="my-0 mt-6">🤖 Or choose one from the list</h2>
+				<h2 class="my-0 mt-6">🤖 Or choose one from this list</h2>
 				<div class="flex gap-8 overflow-x-auto p-4">
 
 					<img @click="useSpecificLink(event, pod.url)" v-for="(pod, key) in pods" :key="key" :src="pod.src"

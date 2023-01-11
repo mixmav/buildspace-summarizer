@@ -3,10 +3,6 @@
     "file": "assets/huberman-71b17ca2.jpg",
     "src": "resources/img/huberman.jpg"
   },
-  "resources/img/podcast-thumbnails/101-caffeine.webp": {
-    "file": "assets/101-caffeine-40b423eb.webp",
-    "src": "resources/img/podcast-thumbnails/101-caffeine.webp"
-  },
   "resources/img/podcast-thumbnails/6-focus.webp": {
     "file": "assets/6-focus-1442a19d.webp",
     "src": "resources/img/podcast-thumbnails/6-focus.webp"
@@ -14,6 +10,10 @@
   "resources/img/podcast-thumbnails/86-alcohol.webp": {
     "file": "assets/86-alcohol-8956b1ae.webp",
     "src": "resources/img/podcast-thumbnails/86-alcohol.webp"
+  },
+  "resources/img/podcast-thumbnails/101-caffeine.webp": {
+    "file": "assets/101-caffeine-40b423eb.webp",
+    "src": "resources/img/podcast-thumbnails/101-caffeine.webp"
   },
   "resources/img/podcast-thumbnails/92-cannabis.webp": {
     "file": "assets/92-cannabis-6d3fcc2a.webp",
@@ -24,17 +24,32 @@
     "src": "resources/img/podcast-thumbnails/10-stress.webp"
   },
   "resources/js/app.css": {
-    "file": "assets/app-1ffbf8a3.css",
+    "file": "assets/app-f1957878.css",
     "src": "resources/js/app.css"
   },
+  "_SubscriberSignUp-34d81515.js": {
+    "file": "assets/SubscriberSignUp-34d81515.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js"
+    ]
+  },
+  "resources/js/Pages/layout/Base.vue": {
+    "file": "assets/Base-424ea091.js",
+    "src": "resources/js/Pages/layout/Base.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js"
+    ]
+  },
   "resources/js/Pages/Home/Page.vue": {
-    "file": "assets/Page-9f40ee6c.js",
+    "file": "assets/Page-839ab6b2.js",
     "src": "resources/js/Pages/Home/Page.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js",
-      "_SubscriberSignUp-e9723cfd.js",
-      "_SectionsView-32627a39.js"
+      "_SubscriberSignUp-34d81515.js",
+      "_SectionsView-3cf0fc98.js"
     ],
     "assets": [
       "assets/huberman-71b17ca2.jpg",
@@ -45,41 +60,26 @@
       "assets/10-stress-75bb6b29.webp"
     ]
   },
-  "_SubscriberSignUp-e9723cfd.js": {
-    "file": "assets/SubscriberSignUp-e9723cfd.js",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.js"
-    ]
-  },
-  "resources/js/Pages/layout/Base.vue": {
-    "file": "assets/Base-89fba280.js",
-    "src": "resources/js/Pages/layout/Base.vue",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.js"
-    ]
-  },
-  "_SectionsView-32627a39.js": {
-    "file": "assets/SectionsView-32627a39.js",
+  "_SectionsView-3cf0fc98.js": {
+    "file": "assets/SectionsView-3cf0fc98.js",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js",
-      "_SubscriberSignUp-e9723cfd.js"
+      "_SubscriberSignUp-34d81515.js"
     ]
   },
   "resources/js/app.js": {
-    "file": "assets/app-38ec8693.js",
+    "file": "assets/app-efba75a1.js",
     "src": "resources/js/app.js",
     "isEntry": true,
     "dynamicImports": [
       "resources/js/Pages/Home/Page.vue",
-      "_SectionsView-32627a39.js",
+      "_SectionsView-3cf0fc98.js",
       "resources/js/Pages/layout/Base.vue",
-      "_SubscriberSignUp-e9723cfd.js"
+      "_SubscriberSignUp-34d81515.js"
     ],
     "css": [
-      "assets/app-1ffbf8a3.css"
+      "assets/app-f1957878.css"
     ]
   }
 }
