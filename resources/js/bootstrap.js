@@ -6,3 +6,4 @@ $.ajaxSetup({
 		'X-Requested-With': 'XMLHttpRequest'
 	}
 });
+

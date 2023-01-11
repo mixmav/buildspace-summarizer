@@ -3,28 +3,42 @@
 		<h2 class="mt-12" id="video-title-heading">{{ apiResponse.title }}</h2>
 		<h3 clas="mt-4"><span class="text-primary">#</span>&nbsp;This podcast has <span class="text-primary">
 				{{ apiResponse.sections.length }} sections</span>.</h3>
-		<button class="daisy-btn daisy-btn-sm my-4 gap-2" @click="startOver"><i class="fa fa-sync"></i>Start over</button>
+		<button class="daisy-btn daisy-btn-sm my-4 gap-2" @click="startOver"><i class="fa fa-sync"></i>Start
+			over</button>
 
 		<div class="daisy-tabs">
-			<span class="daisy-tab daisy-tab-bordered daisy-tab-md md:daisy-tab-lg" :class="{ 'daisy-tab-active': activeTab == 0 }"
-				@click="activeTab = 0">Overall summary</span>
-			<span class="daisy-tab daisy-tab-bordered daisy-tab-md md:daisy-tab-lg" :class="{ 'daisy-tab-active': activeTab == 1 }"
-				@click="activeTab = 1">Summary by section</span>
+			<span class="daisy-tab daisy-tab-bordered daisy-tab-md md:daisy-tab-lg"
+				:class="{ 'daisy-tab-active': activeTab == 0 }" @click="activeTab = 0">Overall summary</span>
+			<span class="daisy-tab daisy-tab-bordered daisy-tab-md md:daisy-tab-lg"
+				:class="{ 'daisy-tab-active': activeTab == 1 }" @click="activeTab = 1">Summary by section</span>
 		</div>
 		<div v-show="activeTab == 0" class="mt-6">
 			<div class="w-full mt-8">
-				<h3 class="mt-0">I'm still working on this <i class="fa fa-yin-yang animate-rotate fa-spin"></i></h3>
+				<h3 class="mt-0">Still working on this <i class="fa fa-yin-yang animate-rotate fa-spin"></i></h3>
 				<p class="my-0 mb-4">Sign up if you'd like feature updates via emails. No spam 🫡</p>
 				<subscriber-sign-up></subscriber-sign-up>
 			</div>
 		</div>
 		<div v-show="activeTab == 1">
-			<div class="daisy-tabs-boxed mt-6 overflow-x-auto">
+			<div class="daisy-collapse relative">
+				<input type="checkbox" class="peer" v-model="listViewOpen"/>
+				<i class="fa fa-caret-down absolute z-20 right-10 top-10 peer-checked:-rotate-180 transition-transform duration-300"></i>
+				<div class="daisy-collapse-title bg-base-300 rounded-xl mt-4">
+					<h4 class="my-0"><i class="fa fa-clipboard-list mr-4"></i>List view</h4>
+				</div>
+
+				<div class="daisy-collapse-content peer-checked:p-4">
+					<div @click="activeSection = (app.loading) ? activeSection : key" :class="{'!daisy-badge-accent animate-bounce cursor-default': (key == activeSection)}" class="daisy-badge daisy-badge-primary odd:daisy-badge-secondary ml-2 cursor-pointer" v-for="(section, key) in apiResponse.sections" :key="key">{{ (section.title.length > 30) ? section.title.slice(0, 50) + "...":section.title }}</div>
+				</div>
+			</div>
+
+			<div class="daisy-tabs-boxed mt-6 overflow-x-auto" id="sections-tabs">
 				<a class="daisy-tab inline daisy-tab-lg lifted transition-[background-color,color,border-radius] ease-linear"
 					:class="{ 'daisy-tab-active': (key == activeSection) }"
 					v-for="(section, key) in apiResponse.sections" :key="key"
 					@click="activeSection = (app.loading) ? activeSection : key">{{ section.section_number + 1 }}</a>
 			</div>
+
 			<div class="p-2">
 				<div class="mt-4 flex flex-col md:flex-row justify-between items-start md:items-center py-2">
 					<h2 class="my-0">{{ activeSectionData?.title }}</h2>
@@ -34,7 +48,8 @@
 							class="fa fa-layer-group"></i>Summarize section</button>
 				</div>
 
-				<div class="daisy-badge hidden md:block daisy-badge-sm" v-show="activeSectionData?.section_number == 0">Often a general
+				<div class="daisy-badge hidden md:block daisy-badge-sm" v-show="activeSectionData?.section_number == 0">
+					Often a general
 					introduction</div>
 				<div v-if="activeSectionSummaryIndex > -1">
 					<h3 class="mb-0">Summary 🥥</h3>
@@ -50,7 +65,7 @@
 
 <script setup>
 
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import $ from 'jquery';
 import { useApiResponse } from '@/stores/useApiResponse';
 import { useApp } from '@/stores/useApp';
@@ -66,10 +81,21 @@ const toast = useToast();
 
 let activeSection = ref(0);
 let activeTab = ref(1);
+let listViewOpen = ref(true);
 
 defineExpose({
 	activeSection,
-	activeTab
+	activeTab,
+});
+
+// Watch the activeTab, and whenever it changes, scroll the .daisy-tab-active element into view
+watch(activeSection, () => {
+	setTimeout(() => {
+		document.querySelector('#sections-tabs .daisy-tab-active').scrollIntoView({
+			behavior: 'smooth',
+			block: 'center',
+		});
+	}, 300)
 });
 
 let activeSectionData = computed(() => {

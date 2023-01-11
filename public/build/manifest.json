@@ -3,58 +3,83 @@
     "file": "assets/huberman-71b17ca2.jpg",
     "src": "resources/img/huberman.jpg"
   },
+  "resources/img/podcast-thumbnails/101-caffeine.webp": {
+    "file": "assets/101-caffeine-40b423eb.webp",
+    "src": "resources/img/podcast-thumbnails/101-caffeine.webp"
+  },
+  "resources/img/podcast-thumbnails/6-focus.webp": {
+    "file": "assets/6-focus-1442a19d.webp",
+    "src": "resources/img/podcast-thumbnails/6-focus.webp"
+  },
+  "resources/img/podcast-thumbnails/86-alcohol.webp": {
+    "file": "assets/86-alcohol-8956b1ae.webp",
+    "src": "resources/img/podcast-thumbnails/86-alcohol.webp"
+  },
+  "resources/img/podcast-thumbnails/92-cannabis.webp": {
+    "file": "assets/92-cannabis-6d3fcc2a.webp",
+    "src": "resources/img/podcast-thumbnails/92-cannabis.webp"
+  },
+  "resources/img/podcast-thumbnails/10-stress.webp": {
+    "file": "assets/10-stress-75bb6b29.webp",
+    "src": "resources/img/podcast-thumbnails/10-stress.webp"
+  },
   "resources/js/app.css": {
-    "file": "assets/app-9aa2e372.css",
+    "file": "assets/app-1ffbf8a3.css",
     "src": "resources/js/app.css"
   },
-  "_SubscriberSignUp-7c6823e7.js": {
-    "file": "assets/SubscriberSignUp-7c6823e7.js",
+  "resources/js/Pages/Home/Page.vue": {
+    "file": "assets/Page-9f40ee6c.js",
+    "src": "resources/js/Pages/Home/Page.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_SubscriberSignUp-e9723cfd.js",
+      "_SectionsView-32627a39.js"
+    ],
+    "assets": [
+      "assets/huberman-71b17ca2.jpg",
+      "assets/6-focus-1442a19d.webp",
+      "assets/101-caffeine-40b423eb.webp",
+      "assets/86-alcohol-8956b1ae.webp",
+      "assets/92-cannabis-6d3fcc2a.webp",
+      "assets/10-stress-75bb6b29.webp"
+    ]
+  },
+  "_SubscriberSignUp-e9723cfd.js": {
+    "file": "assets/SubscriberSignUp-e9723cfd.js",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "resources/js/Pages/Home/Page.vue": {
-    "file": "assets/Page-1842e030.js",
-    "src": "resources/js/Pages/Home/Page.vue",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.js",
-      "_SubscriberSignUp-7c6823e7.js",
-      "_SectionsView-b3ace91a.js"
-    ],
-    "assets": [
-      "assets/huberman-71b17ca2.jpg"
-    ]
-  },
-  "_SectionsView-b3ace91a.js": {
-    "file": "assets/SectionsView-b3ace91a.js",
-    "isDynamicEntry": true,
-    "imports": [
-      "resources/js/app.js",
-      "_SubscriberSignUp-7c6823e7.js"
-    ]
-  },
   "resources/js/Pages/layout/Base.vue": {
-    "file": "assets/Base-89bc24a6.js",
+    "file": "assets/Base-89fba280.js",
     "src": "resources/js/Pages/layout/Base.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.js"
     ]
   },
+  "_SectionsView-32627a39.js": {
+    "file": "assets/SectionsView-32627a39.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.js",
+      "_SubscriberSignUp-e9723cfd.js"
+    ]
+  },
   "resources/js/app.js": {
-    "file": "assets/app-b004a0ef.js",
+    "file": "assets/app-38ec8693.js",
     "src": "resources/js/app.js",
     "isEntry": true,
     "dynamicImports": [
       "resources/js/Pages/Home/Page.vue",
-      "_SectionsView-b3ace91a.js",
+      "_SectionsView-32627a39.js",
       "resources/js/Pages/layout/Base.vue",
-      "_SubscriberSignUp-7c6823e7.js"
+      "_SubscriberSignUp-e9723cfd.js"
     ],
     "css": [
-      "assets/app-9aa2e372.css"
+      "assets/app-1ffbf8a3.css"
     ]
   }
 }

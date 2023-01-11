@@ -20,6 +20,7 @@ class SummaryController extends Controller
 		if($youtube_video->exists()){
 			$youtube_video = $youtube_video->first();
 			$sections = $youtube_video->sections();
+
 			if(count($sections->get()) > 0){
 				$return['data']['title'] = $youtube_video->title;
 				$return['data']['cached'] = true;
@@ -29,6 +30,7 @@ class SummaryController extends Controller
 						'title' => $section->title,
 						'section_id' => $section->id,
 						'section_number' => $section->section_number,
+						// 'has_summary' => (count($section->summaries()->get()) > 0),
 						'text' => $section->text,
 					);
 				}
